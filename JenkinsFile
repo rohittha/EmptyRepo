@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('1 - Build') {
             steps {
                 script {
                     def isUnix = isUnix()
@@ -11,33 +11,31 @@ pipeline {
                     } else {
                         bat 'echo "Running on Windows environment. "'
                         bat 'docker version'
-                        bat 'echo "running docker info!"'
+                        bat 'echo "Batch 1 : running docker info!"'
                         bat 'docker info'
-                        bat 'echo "Batch 1 complete!"'
+                        bat 'echo "Batch 2 : running compose!"'
                         bat 'docker-compose version'
-                        bat 'echo "Batch 2 complete! checking curl"'
+                        bat 'echo "Batch 3 : running curl"'
                         bat 'curl --version'
-                        bat 'echo "Batch 3 complete! checking jq version!"'
-                        bat 'jq --version'
                     }
                 }
             }
         }
         
-        stage('Prune Docker Data') {
+        stage('2 - Prune Docker Data') {
             steps {
                 bat 'docker system prune -a --volumes -f'
             }
         }
         
-        stage('Start container') {
+        stage('3 - Start container') {
             steps {
                 bat 'docker-compose up -d --no-color --wait'
                 bat 'docker-compose ps'
             }
         }
 
-        stage('Run tests against container to verify!') {
+        stage('4 - Run tests against container to verify!') {
             steps {
                 bat 'curl httl://localhost:3000/param?query=demo'
             }
