@@ -11,23 +11,11 @@ pipeline {
                         sh 'docker-compose -f docker-compose.yml build'
                     } else {
                         bat 'echo "Running on Windows environment"'
-                        bat 'docker-compose -f docker-compose.yml build'
+                        bat 'docker version'
                     }
                 }
             }
         }
 
-        stage('Deploy') {
-            steps {
-                script {
-                    def isUnix = isUnix()
-                    if (isUnix) {
-                        sh 'docker-compose -f docker-compose.yml up -d'
-                    } else {
-                        bat 'docker-compose -f docker-compose.yml up -d'
-                    }
-                }
-            }
-        }
     }
 }
