@@ -37,7 +37,7 @@ pipeline {
 
         stage('4 - Run tests against container to verify!') {
             steps {
-                bat 'curl httl://localhost:3000/param?query=demo'
+                bat 'curl http://localhost:3000/param?query=demo'
             }
         }
     }
