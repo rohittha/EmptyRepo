@@ -9,8 +9,11 @@ pipeline {
                     if (isUnix) {
                         sh 'echo "Running on Unix/Linux environment"'
                     } else {
-                        bat 'echo "Running on Windows environment"'
-                        bat 'docker version docker info docker compose version curl --version jq --version'
+                        docker version
+                        docker info
+                        docker compose version
+                        curl --version
+                        jq --version
                     }
                 }
             }
