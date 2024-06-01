@@ -8,10 +8,13 @@ pipeline {
                     def isUnix = isUnix()
                     if (isUnix) {
                         sh 'echo "Running on Unix/Linux environment"'
-                        sh 'docker-compose -f docker-compose.yml build'
                     } else {
                         bat 'echo "Running on Windows environment"'
-                        bat 'docker version'
+                        bat 'docker version 
+                            docker info
+                            docker compose version
+                            curl --version
+                            jq --version'
                     }
                 }
             }
